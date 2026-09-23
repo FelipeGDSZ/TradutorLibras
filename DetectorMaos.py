@@ -173,15 +173,6 @@ def main():
             # -----------------------------
 
 
-
-        # # Aplica a normalização matemática
-        # lista_normalizada = detector.normalizarPosicao(lista_posicoes)
-            
-        # # Vamos imprimir a lista final para conferir
-        # print(lista_normalizada)
-            
-        # Note que o primeiro X e Y (índices 0 e 1 da lista) sempre serão 0.0, pois são o pulso!
-        
         # Mostrar a imagem de captura:
         cv2.imshow('Tradutor de Libras', imagem);
 
