@@ -160,15 +160,34 @@ def main():
             previsao = modelo.predict([lista_normalizada])
             letra_traduzida = previsao[0] # Pega o resultado (ex: "A", "B")
             
-            # Escreve a letra gigante na tela
+           # --- LAYOUT ---
+            # 1. Desenha o fundo escuro (Retângulo preenchido)
+            # Parâmetros: imagem, (Ponto Superior Esquerdo), (Ponto Inferior Direito), (Cor BGR), preenchimento
+            cv2.rectangle(imagem, (20, 20), (280, 90), (35, 35, 35), cv2.FILLED)
+            
+            # 2. Desenha uma borda estilizada ao redor da caixa (opcional)
+            cv2.rectangle(imagem, (20, 20), (280, 90), (255, 255, 255), 2)
+            
+            # 3. Texto descritivo menor ("Sinal detectado:")
             cv2.putText(
                 imagem, 
-                f"Sinal: {letra_traduzida}", 
-                (20, 70), 
+                "Sinal:", 
+                (35, 65), 
                 cv2.FONT_HERSHEY_SIMPLEX, 
-                2, 
-                (0, 255, 0), # Cor Verde
-                4 # Espessura
+                1, # Tamanho menor
+                (200, 200, 200), # Cor cinza claro
+                2  # Espessura
+            )
+            
+            # 4. A Letra/Palavra traduzida com destaque
+            cv2.putText(
+                imagem, 
+                str(letra_traduzida), 
+                (150, 70), 
+                cv2.FONT_HERSHEY_SIMPLEX, 
+                1.5, # Tamanho maior
+                (0, 255, 0), # Cor verde
+                3 # Espessura
             )
             # -----------------------------
 
