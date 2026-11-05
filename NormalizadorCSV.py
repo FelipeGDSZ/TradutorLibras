@@ -13,13 +13,14 @@ def main():
 
     linhas_normalizadas = []
 
-    print("2. Aplicando Normalização e gerando as mãos esquerdas...")
+    # Aplica apenas a normalização matemática
+    print("2. Aplicando Normalização aos dados originais...")
     for linha in linhas_brutas:
         letra = linha[0]
         # Converte as strings das coordenadas para números decimais (floats)
         coords = [float(x) for x in linha[1:]]
 
-        # --- PASSO A: TRANSLAÇÃO (Pulso no 0,0) ---
+        # TRANSLAÇÃO (Pulso no 0,0)
         base_x = coords[0]
         base_y = coords[1]
 
@@ -30,7 +31,7 @@ def main():
             y_transladado = coords[i+1] - base_y
             pontos_transladados.append((x_transladado, y_transladado))
 
-        # --- PASSO B: ESCALONAMENTO (Achatar tamanho para -1 a 1) ---
+        # ESCALONAMENTO (Achatar tamanho para -1 a 1)
         valores_absolutos = []
         for px, py in pontos_transladados:
             valores_absolutos.extend([abs(px), abs(py)])
@@ -39,26 +40,18 @@ def main():
         if valor_maximo == 0: 
             valor_maximo = 1.0
 
-        # --- PASSO C: GERANDO AS DUAS MÃOS ---
-        mao_direita = []
-        mao_esquerda = []
+        mao_normalizada = []
 
         for px, py in pontos_transladados:
             # Divide tudo pela maior distância (Normalização final)
             nx = px / valor_maximo
             ny = py / valor_maximo
 
-            # Mão Original (Direita)
-            mao_direita.append(nx)
-            mao_direita.append(ny)
+            # Guarda apenas a Mão Original
+            mao_normalizada.extend([nx, ny])
 
-            # Mão Espelhada (Esquerda - Inverte apenas o eixo X)
-            mao_esquerda.append(nx * -1)
-            mao_esquerda.append(ny)
-
-        # Adiciona as duas versões na nossa nova lista
-        linhas_normalizadas.append([letra] + mao_direita)
-        linhas_normalizadas.append([letra] + mao_esquerda)
+        # Adiciona a versão normalizada na nossa nova lista
+        linhas_normalizadas.append([letra] + mao_normalizada)
 
     print("3. Salvando o banco de dados definitivo...")
     # Salva em um arquivo NOVO para não estragar o original caso dê erro
@@ -67,7 +60,7 @@ def main():
         for linha in linhas_normalizadas:
             escritor.writerow(linha)
             
-    print(f"Sucesso! {len(linhas_normalizadas)} amostras perfeitas foram criadas.")
+    print(f"Sucesso! {len(linhas_normalizadas)} amostras puras foram criadas e estão prontas para o split.")
 
 if __name__ == '__main__':
     main()

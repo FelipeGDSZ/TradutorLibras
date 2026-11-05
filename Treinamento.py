@@ -27,7 +27,7 @@ def main():
     acuracia = accuracy_score(y_test, previsoes)
     print(f"-> Acurácia do modelo: {acuracia * 100:.2f}%")
 
-    print("5. Salvando o cérebro treinado...")
+    print("5. Salvando o modelo treinado...")
     with open('modelo_libras.pkl', 'wb') as arquivo:
         pickle.dump(modelo, arquivo)
     print("-> Arquivo 'modelo_libras.pkl' gerado com sucesso!")

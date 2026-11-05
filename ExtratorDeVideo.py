@@ -6,7 +6,9 @@ def main():
     # 1. Configurações
     caminho_video = 'video2libras.mp4'  
     classe_atual = "A"           # Valor inicial ao abrir o programa
-    arquivo_csv = "banco_normalizado.csv"
+    
+    # Aponta para o arquivo de dados brutos
+    arquivo_csv = "banco_de_dados.csv" 
     
     # 2. Carrega o vídeo e o detector
     cap = cv2.VideoCapture(caminho_video)
@@ -16,9 +18,9 @@ def main():
     
     print("\n--- CONTROLES DO PLAYER ---")
     print("[ESPAÇO] Pausar / Despausar o vídeo")
-    print("[ S ] Salvar o frame atual (Original + Espelhado)")
+    print("[ S ] Salvar o frame atual (Apenas Coordenadas Brutas)")
     print("[ C ] Trocar a letra/palavra atual")
-    print("[ Q ] Sair do programa")
+    print("[ ESC ] Sair do programa")
     print("---------------------------\n")
 
     while True:
@@ -36,7 +38,7 @@ def main():
         
         tecla = cv2.waitKey(30) & 0xFF
         
-        if tecla == 27:
+        if tecla == 27: # ESC
             break
             
         elif tecla == ord(' '):
@@ -44,7 +46,8 @@ def main():
             estado = "PAUSADO" if pausado else "RODANDO"
             print(f"Vídeo {estado}")
 
-        # --- SISTEMA DE TROCA DE CLASSE ---
+        # ------------------------------------
+        # Troca de Classe
         elif tecla == ord('c'):
             print("\n--- TROCA DE SINAL ---")
             nova_classe = input(f"Sinal atual: '{classe_atual}'. Digite a nova letra/palavra: ")
@@ -56,21 +59,23 @@ def main():
             
         elif tecla == ord('s'):
             if len(lista_posicoes) != 0:
-                lista_normalizada = detector.normalizarPosicao(lista_posicoes)
                 
-                lista_espelhada = []
-                for i in range(len(lista_normalizada)):
-                    if i % 2 == 0:  
-                        lista_espelhada.append(lista_normalizada[i] * -1)
-                    else:           
-                        lista_espelhada.append(lista_normalizada[i])
+                # Extrair apenas as coordenadas X e Y brutas
+                # O detector geralmente retorna [[id, x, y], [id, x, y]...]. 
+                # Vamos achatar isso para uma lista simples [x1, y1, x2, y2...]
+                lista_bruta = []
+                if isinstance(lista_posicoes[0], list): 
+                    for ponto in lista_posicoes:
+                        lista_bruta.extend([ponto[1], ponto[2]]) # Ignora o ID, pega X e Y
+                else:
+                    lista_bruta = lista_posicoes # Caso a sua função já retorne achatado
                 
+                # Guardar sem normalizar
                 with open(arquivo_csv, mode='a', newline='') as f:
                     escritor = csv.writer(f)
-                    escritor.writerow([classe_atual] + lista_normalizada) 
-                    escritor.writerow([classe_atual] + lista_espelhada)   
+                    escritor.writerow([classe_atual] + lista_bruta) 
                     
-                print(f"Sinais '{classe_atual}' (Original e Espelhado) guardados com sucesso!")
+                print(f"Sinal '{classe_atual}' (Dados Brutos) guardado com sucesso em {arquivo_csv}!")
             else:
                 print("Nenhuma mão detetada neste frame. Tente noutro momento.")
 

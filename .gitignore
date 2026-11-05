@@ -1,9 +1,9 @@
-# Ambiente Virtual Python
+# Ambientes Virtuais e Cache
 .venv/
 venv/
 __pycache__/
 *.pyc
 
-# Arquivos do Sistema Operacional
-.DS_Store
-Thumbs.db
+# Vídeos e Mídias (Muito pesados para o GitHub)
+*.mp4
+Mídia/
