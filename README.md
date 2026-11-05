@@ -2,7 +2,7 @@
 
 Este repositório se trata de um projeto que consiste em identificar letras e palavras presentes na **Língua Brasileira de Sinais** por meio de Visão Computacional e Machine Learning, utilizando a webcam ou análise de vídeos. Toda a arquitetura de extração, normalização de dados e treinamento do modelo é feita localmente.
 
-> **Status:** 🚧 Em desenvolvimento ativo. A arquitetura base e a interface visual (UI) estão prontas. O sistema conta agora com uma ferramenta de extração de dados via vídeo para expansão robusta do vocabulário e criação de base de dados ambidestra.
+> **Status:** Em desenvolvimento ativo. A arquitetura base e a interface visual (UI) estão prontas. O sistema conta agora com uma ferramenta de extração de dados via vídeo para expansão robusta do vocabulário e criação de base de dados ambidestra.
 
 ## Tecnologias Utilizadas
 ![Python](https://img.shields.io/badge/python-%233670A0.svg?style=for-the-badge&logo=python&logoColor=ffdd54)
