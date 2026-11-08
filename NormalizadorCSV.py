@@ -13,7 +13,7 @@ def main():
 
     linhas_normalizadas = []
 
-    # Aplica apenas a normalização matemática
+    # Aplica a normalização matemática
     print("2. Aplicando Normalização aos dados originais...")
     for linha in linhas_brutas:
         letra = linha[0]
@@ -50,7 +50,7 @@ def main():
             # Guarda apenas a Mão Original
             mao_normalizada.extend([nx, ny])
 
-        # Adiciona a versão normalizada na nossa nova lista
+        # Adiciona a versão normalizada na nova lista
         linhas_normalizadas.append([letra] + mao_normalizada)
 
     print("3. Salvando o banco de dados definitivo...")
