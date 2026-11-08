@@ -193,7 +193,11 @@ def main():
             )
             # -----------------------------
 
+        # Aumenta a imagem processada para 1280x720
+        imagem = cv2.resize(imagem, (940, 720))
 
+        # Mostrar a imagem de captura:
+        cv2.imshow('Tradutor de Libras', imagem)
         # Mostrar a imagem de captura:
         cv2.imshow('Tradutor de Libras', imagem)
 
