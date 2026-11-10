@@ -218,8 +218,7 @@ def main():
                     # e guardamos apenas o X (índice 1) e o Y (índice 2).
                     lista_bruta.extend([ponto[1], ponto[2]])
                 
-                # 2. Guardamos diretamente no ficheiro de dados brutos
-                # O ideal é ter uma variável 'classe_atual' definida antes do loop (ex: classe_atual = 'A')
+                # 2. Guardando diretamente no arquivo de dados brutos
                 with open("banco_de_dados.csv", mode='a', newline='') as f:
                     escritor = csv.writer(f)
                     escritor.writerow([classe_atual] + lista_bruta) 
